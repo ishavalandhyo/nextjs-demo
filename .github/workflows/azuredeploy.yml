@@ -12,15 +12,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-az webapp config set `
-  --resource-group Isha-RG `
-  --name nextjs-isha `
-  --startup-file "npm start"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: "24"
 
       - name: Install dependencies
         run: npm install
@@ -31,18 +27,18 @@ az webapp config set `
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
-          name: next-app
+          name: nextjs-app
           path: .
 
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: next-app
+          name: nextjs-app
           path: .
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'my-nextjs-app'
+          app-name: "my-nextjs-app"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
